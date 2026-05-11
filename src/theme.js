@@ -1,5 +1,4 @@
 import { experimental_extendTheme as extendTheme } from '@mui/material/styles'
-import { cyan, deepOrange, orange, teal } from '@mui/material/colors'
 
 const theme = extendTheme({
   trello:{
@@ -7,18 +6,8 @@ const theme = extendTheme({
     boardBarHeight:'60px'
   },
   colorSchemes: {
-    // light: {
-    //   palette: {
-    //     primary: teal,
-    //     secondary:deepOrange
-    //   }
-    // },
-    // dark: {
-    //   palette: {
-    //     primary: cyan,
-    //     secondary: orange
-    //   }
-    // }
+    light: {},
+    dark: {}
   },
   components: {
     MuiCssBaseline: {
@@ -29,57 +18,45 @@ const theme = extendTheme({
             height: '8px'
           },
           '*::-webkit-scrollbar-thumb': {
-            backgroundColor: '#bdc3c7',
+            backgroundColor: '#dcdde1',
             borderRadius: '8px'
           },
           '*::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: '#16a085',
+            backgroundColor: 'white',
             borderRadius: '8px'
           }
         }
       }
     },
 
-    // Name of the component
     MuiButton: {
       styleOverrides: {
-        // Name of the slot
         root: {
-          // Some CSS
-          textTransform: 'none'
+          textTransform: 'none',
+          borderWidth: '0.5px',
+          '&:hover': {
+            borderWidth: '0.5px'
+          }
         }
       }
     },
     MuiInputLabel: {
       styleOverrides: {
         // Name of the slot
-        root: ({theme}) => ({
-          color: theme.palette.primary.main,
-          fontSize: '0.875rem'
-        })
+        root:{ fontSize: '0.875rem' }
       }
     },
     MuiOutlinedInput: {
       styleOverrides: {
-        root:({ theme }) => {
-          return {
-            color: theme.palette.primary.main,
-            fontSize: '0.875rem',
-            '.MuiOutlinedInput-notchedOutline': {
-              borderColor: theme.palette.primary.light
-            },
-            '&:hover .MuiOutlinedInput-notchedOutline': {
-              borderColor: theme.palette.primary.main
-            },
-            '& fieldset':{
-              borderWidth: '1px !important'
-            }
-          }
+        root:{
+          fontSize: '0.875rem',
+          '& fieldset':{ borderWidth: '0.5px !important' },
+          '&:hover fieldset':{ borderWidth: '1px !important' },
+          '.Mui-focused fieldset':{ borderWidth: '1px !important' }
         }
       }
     }
   },
-  // ...other properties
   colorSchemeSelector: 'class'
 })
 
