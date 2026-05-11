@@ -37,7 +37,7 @@ function AppBar() {
         gap: 2,
         overflowX: 'auto',
         bgcolor: (theme) => {
-          return theme.palette.mode === 'dark' ? '#202245' : '#0470c8'
+          return theme.palette.mode === 'dark' ? '#14152c' : '#2c5dee'
         }
       }}>
 
