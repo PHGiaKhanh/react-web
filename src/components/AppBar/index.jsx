@@ -2,7 +2,6 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 import ModeSelect from '~/components/ModeSelect'
 import AppsIcon from '@mui/icons-material/Apps'
-// import trellologo from '~/assets/trello.svg'
 import { ReactComponent as TrelloIcon } from '~/assets/trello.svg'
 import SvgIcon from '@mui/material/SvgIcon'
 import { Typography } from '@mui/material'
@@ -21,55 +20,59 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
 import InputAdornment from '@mui/material/InputAdornment'
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
+import { useColorScheme } from '@mui/material/styles'
 
 function AppBar() {
   const [searchValue, setSearchValue] = useState('')
+  const { mode, systemMode } = useColorScheme()
+
+  // mode có thể là: 'light' | 'dark' | 'system'
+  const currentMode = (mode === 'system' ? systemMode : mode) || 'light'
 
   return (
     <>
-      {/* px is padding left and right */}
-      <Box px={2} sx={{
-        width:'100%',
-        height: (theme) => theme.trello.appBarHeight,
-        display:'flex',
-        alignItems:'center',
-        justifyContent:'space-between',
-        gap: 2,
-        overflowX: 'auto',
-        bgcolor: (theme) => {
-          return theme.palette.mode === 'dark' ? '#14152c' : '#2c5dee'
-        }
-      }}>
-
-        <Box sx={{ display:'flex', alignItems:'center', gap: 2 }}>
+      <Box
+        px={2}
+        sx={{
+          width: '100%',
+          height: (theme) => theme.trello.appBarHeight,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 2,
+          overflowX: 'auto',
+          bgcolor: currentMode === 'dark' ? '#072246' : '#093675'
+        }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <AppsIcon sx={{ color: 'white' }} />
-          <Box sx={{ display:'flex', alignItems:'center', gap: 0.5 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             {/* <img src={trellologo} alt="Trello Logo" style={{ height: '24px', marginLeft: '8px' }} /> */}
             <SvgIcon component={TrelloIcon} inheritViewBox fontSize="small" sx={{ color: 'white' }} />
-            <Typography variant="span" sx={{ color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
+            <Typography component="span" sx={{ color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
                   Trello
             </Typography>
           </Box>
 
-          <Box sx={{display:{ xs:'none', md:'flex' }, gap: 1}}>
-            <Workspaces/>
-            <Recent/>
-            <Starred/>
-            <Templates/>
-            <Button 
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+            <Workspaces />
+            <Recent />
+            <Starred />
+            <Templates />
+            <Button
               variant="outlined"
               startIcon={<LibraryAddIcon />}
-              sx={{ color:'white', border: 'none', '&:hover': { border:'none' } }}>
+              sx={{ color: 'white', border: 'none', '&:hover': { border: 'none' } }}>
               Create
             </Button>
           </Box>
         </Box>
 
-        <Box sx={{ display:'flex', alignItems:'center', gap: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <TextField
             id="outlined-search"
             label="Search..."
-            type="text "
+            type="text"
             size="small"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
@@ -82,7 +85,7 @@ function AppBar() {
                 ),
                 endAdornment: (
                   <CloseIcon
-                    fontsize="small"
+                    fontSize="small"
                     sx={{ color: searchValue ? 'white' : 'transparent', cursor: 'pointer' }}
                     onClick={() => setSearchValue('')}
                   />
@@ -99,12 +102,13 @@ function AppBar() {
                 '& fieldset': { borderColor: 'white' },
                 '&:hover fieldset': { borderColor: 'white' },
                 '&.Mui-focused fieldset': { borderColor: 'white' }
-              }
+              },
+              minWidth: '180px'
             }}
-            fullWidth minWidth="180px" />
+            fullWidth />
           <ModeSelect />
           <Tooltip title="Notifications">
-            <Badge color="warning" variant="dot" sx={{cursor: 'pointer'}}>
+            <Badge color="warning" variant="dot" sx={{ cursor: 'pointer' }}>
               <NotificationsNoneIcon sx={{ color: 'white' }} />
             </Badge>
           </Tooltip>

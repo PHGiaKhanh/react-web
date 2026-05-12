@@ -13,7 +13,7 @@ const theme = extendTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          '*::-webkit-scrollbar ':{
+          '*::-webkit-scrollbar':{
             width: '8px',
             height: '8px'
           },
@@ -50,14 +50,15 @@ const theme = extendTheme({
       styleOverrides: {
         root:{
           fontSize: '0.875rem',
-          '& fieldset':{ borderWidth: '0.5px !important' },
-          '&:hover fieldset':{ borderWidth: '1px !important' },
-          '.Mui-focused fieldset':{ borderWidth: '1px !important' }
+          '& fieldset': { borderWidth: '0.5px !important' },
+          '&:hover fieldset': { borderWidth: '1px !important' },
+          '&.Mui-focused fieldset': {
+            borderWidth: '1px !important'
+          }
         }
       }
     }
-  },
-  colorSchemeSelector: 'class'
+  }
 })
 
 export default theme
