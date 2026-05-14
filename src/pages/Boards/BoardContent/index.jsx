@@ -23,12 +23,16 @@ import DragHandleIcon from '@mui/icons-material/DragHandle'
 import GroupIcon from '@mui/icons-material/Group'
 import CommentIcon from '@mui/icons-material/Comment'
 import AttachmentIcon from '@mui/icons-material/Attachment'
+import { useColorScheme } from '@mui/material/styles'
 
 const COLUMN_HEADER_HEIGHT = '50px'
 const COLUMN_FOOTTER_HEIGHT = '56px'
 
 
 function BoardContent() {
+  const { mode, systemMode } = useColorScheme()
+  const currentMode = (mode === 'system' ? systemMode : mode) || 'light'
+
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
   const handleClick = (event) => {setAnchorEl(event.currentTarget)}
@@ -39,7 +43,7 @@ function BoardContent() {
       <Box
         sx={{
           //bgcolor: currentMode === 'dark' ? '#2b3a55' : '#75c3fe',
-          bgcolor: (theme) => theme.palette.mode === 'dark' ? '#34495e' : '#1976d2',
+          bgcolor: currentMode === 'dark' ? '#34495e' : '#1976d2',
           width: '100%',
           height: (theme) => theme.trello.boardContentHeight,
           p: '10px 0'
@@ -61,7 +65,7 @@ function BoardContent() {
               minWidth: '300px',
               maxWidth: '300px',
               //bgcolor: currentMode === 'dark'? '#333643' : '#ebecf0',
-              bgcolor: (theme) => theme.palette.mode === 'dark' ? '#333643' : '#ebecf0',
+              bgcolor: currentMode === 'dark' ? '#333643' : '#ebecf0',
               ml: 2,
               borderRadius: '6px',
               height: 'fit-content',
@@ -337,7 +341,7 @@ function BoardContent() {
             sx={{
               minWidth: '300px',
               maxWidth: '300px',
-              bgcolor: (theme) => theme.palette.mode === 'dark' ? '#333643' : '#ebecf0',
+              bgcolor: currentMode === 'dark' ? '#333643' : '#ebecf0',
               ml: 2,
               borderRadius: '6px',
               height: 'fit-content',

@@ -11,16 +11,8 @@ const theme = extendTheme({
     boardContentHeight:BOARD_CONTENT_HEIGHT
   },
   colorSchemes: {
-    light: {
-      palette: {
-        mode: 'light'
-      }
-    },
-    dark: {
-      palette: {
-        mode: 'dark'
-      }
-    }
+    light: {},
+    dark: {}
   },
   components: {
     MuiCssBaseline: {
