@@ -40,7 +40,6 @@ function BoardBar() {
         justifyContent:'space-between',
         gap: 2,
         overflowX: 'auto',
-        borderBottom: '1px solid blue',
         bgcolor: currentMode === 'dark' ? '#27354f' : '#0d4c98'
       }}>
         <Box sx={{ display:'flex', alignItems:'center', gap: 2 }}>
