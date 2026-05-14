@@ -6,7 +6,7 @@ import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import Check from '@mui/icons-material/Check';
+import Check from '@mui/icons-material/Check'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 const Starred = () => {
@@ -40,11 +40,11 @@ const Starred = () => {
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'top',
-          horizontal: 'left',
+          horizontal: 'left'
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'left',
+          horizontal: 'left'
         }}
       >
         <MenuItem>

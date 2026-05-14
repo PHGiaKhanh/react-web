@@ -41,7 +41,7 @@ function ModeSelect() {
         <MenuItem value="light">
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <LightModeIcon fontSize="small" /> Light
-          </Box>  
+          </Box>
         </MenuItem>
 
         <MenuItem value="dark">

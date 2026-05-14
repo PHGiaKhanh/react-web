@@ -44,11 +44,11 @@ const Workspaces = () => {
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'top',
-          horizontal: 'left',
+          horizontal: 'left'
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'left',
+          horizontal: 'left'
         }}
       >
         <MenuItem>
