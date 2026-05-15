@@ -11,6 +11,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import { useColorScheme } from '@mui/material/styles'
+import {capitalizeFirstLetter} from '~/utils/formatters'
 
 const MENU_STYLE = {
   color: 'white',
@@ -25,7 +26,9 @@ const MENU_STYLE = {
   }
 }
 
-function BoardBar() {
+function BoardBar({board }) {
+
+
   const { mode, systemMode } = useColorScheme()
   const currentMode = (mode === 'system' ? systemMode : mode) || 'light'
 
@@ -46,7 +49,7 @@ function BoardBar() {
           <Chip
             sx={MENU_STYLE}
             icon={<DashboardIcon />}
-            label="Learn with camoi about trello web"
+            label={board?.title}
             clickable
             // onClick={() => alert('Clicked!')}
           />
@@ -54,7 +57,7 @@ function BoardBar() {
           <Chip
             sx={MENU_STYLE}
             icon={<VpnLockIcon />}
-            label="Public/Private Workspaces"
+            label={capitalizeFirstLetter(board?.type)}
             clickable
           />
 
