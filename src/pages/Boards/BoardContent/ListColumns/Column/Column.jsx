@@ -18,9 +18,9 @@ import { Typography } from '@mui/material'
 import { useColorScheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import ListCards from './ListCards/ListCards'
+import { mapOrder } from '~/utils/sorts'
 
-
-function Column() {
+function Column({ column }) {
   const { mode, systemMode } = useColorScheme()
   const currentMode = (mode === 'system' ? systemMode : mode) || 'light'
 
@@ -28,6 +28,9 @@ function Column() {
   const open = Boolean(anchorEl)
   const handleClick = (event) => {setAnchorEl(event.currentTarget)}
   const handleClose = () => {setAnchorEl(null)}
+
+  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+
   return (
     <Box
       sx={{
@@ -54,7 +57,7 @@ function Column() {
           fontSize: '1.125rem',
           cursor: 'pointer'
         }}>
-          Column Title
+          {column?.title}
         </Typography>
 
         <Box>
@@ -123,7 +126,7 @@ function Column() {
       </Box>
 
       {/* body */}
-      <ListCards />
+      <ListCards cards={orderedCards} />
 
       {/* footer */}
       <Box sx={{
