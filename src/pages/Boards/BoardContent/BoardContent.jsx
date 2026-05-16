@@ -4,7 +4,6 @@ import ListColumns from './ListColumns/ListColumns'
 import { mapOrder } from '~/utils/sorts'
 import {
   DndContext,
-  PointerSensor,
   MouseSensor,
   TouchSensor,
   useSensor,
@@ -17,11 +16,6 @@ function BoardContent({ board }) {
   const { mode, systemMode } = useColorScheme()
   const currentMode = (mode === 'system' ? systemMode : mode) || 'light'
 
-  const pointerSensor = useSensor(PointerSensor, {
-    activationConstraint: {
-      distance:10
-    }
-  })
 
   // Nhan giu 10px thi moi duoc kich hoat drag
   const mouseSensor = useSensor(MouseSensor, {
