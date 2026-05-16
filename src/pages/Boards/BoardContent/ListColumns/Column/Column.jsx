@@ -15,14 +15,22 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import AddCardIcon from '@mui/icons-material/AddCard'
 import DragHandleIcon from '@mui/icons-material/DragHandle'
 import { Typography } from '@mui/material'
-import { useColorScheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import ListCards from './ListCards/ListCards'
 import { mapOrder } from '~/utils/sorts'
+import { CSS } from '@dnd-kit/utilities'
+import { useSortable } from '@dnd-kit/sortable'
 
 function Column({ column }) {
-  const { mode, systemMode } = useColorScheme()
-  const currentMode = (mode === 'system' ? systemMode : mode) || 'light'
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+    id: column._id,
+    data: { ...column }
+  })
+  const dndKitColumnStyles = {
+    touchAction: 'none',
+    transform: CSS.Translate.toString(transform),
+    transition
+  }
 
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
@@ -33,15 +41,18 @@ function Column({ column }) {
 
   return (
     <Box
+      ref={setNodeRef}
+      style={dndKitColumnStyles}
+      {...attributes}
+      {...listeners}
       sx={{
         minWidth: '300px',
         maxWidth: '300px',
-        //bgcolor: currentMode === 'dark'? '#333643' : '#ebecf0',
-        bgcolor: currentMode === 'dark' ? '#333643' : '#ebecf0',
+        bgcolor: (theme) => theme.vars.palette.background.paper,
         ml: 2,
         borderRadius: '6px',
         height: 'fit-content',
-        maxHeight: (theme) => `calc(${theme.trello.boardContentHeight} - ${theme.spacing(5)})`,
+        maxHeight: (theme) => `calc(${theme.trello.boardContentHeight} - ${theme.spacing(5)})`
       }}
     >
       {/* header */}
