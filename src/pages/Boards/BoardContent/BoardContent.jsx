@@ -7,10 +7,19 @@ import {
   MouseSensor,
   TouchSensor,
   useSensor,
-  useSensors
+  useSensors,
+  DragOverlay,
+  defaultDropAnimationSideEffects
 } from '@dnd-kit/core'
 import { useEffect, useState } from 'react'
 import { arrayMove } from '@dnd-kit/sortable'
+import Column from './ListColumns/Column/Column'
+import Card from './ListColumns/Column/ListCards/Card/Card'
+
+const ACTIVE_DRAG_ITEM_TYPE = {
+  COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
+  CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
+}
 
 function BoardContent({ board }) {
   const { mode, systemMode } = useColorScheme()
@@ -33,10 +42,21 @@ function BoardContent({ board }) {
   const sensors = useSensors(mouseSensor, touchSensor)
 
   const [orderedColumns, setOrderedColumns] = useState([])
+
+  //1  thoi diem chi 1 item duoc drag
+  const [activeDragItemId, setActiveDragItemId] = useState(null) // { type: ACTIVE_DRAG_ITEM_TYPE.COLUMN, id: 'column-1' } hoac { type: ACTIVE_DRAG_ITEM_TYPE.CARD, id: 'card-1' }
+  const [activeDragItemType, setActiveDragItemType] = useState(null)
+  const [activeDragItemData, setActiveDragItemData] = useState(null)
   useEffect(() => {
     setOrderedColumns(mapOrder(board?.columns, board?.columnOrderIds, '_id'))
   }, [board])
 
+  //TRigger khi ket thuc hành dong keo(Drag) 1 phan tu=>hanh dong tha(drop)
+  const handleDragStart = (event) => {
+    setActiveDragItemId(event.active?.id)
+    setActiveDragItemType(event.active?.data?.current?.columnId ? ACTIVE_DRAG_ITEM_TYPE.CARD : ACTIVE_DRAG_ITEM_TYPE.COLUMN)
+    setActiveDragItemData(event.active?.data?.current)
+  }
   const handleDragEnd = (event) => {
     console.log('Drag ended:', event)
     const { active, over } = event
@@ -55,10 +75,19 @@ function BoardContent({ board }) {
       // console.log('DndOrderedColumnIds:', dndOrderedColumnIds)
       setOrderedColumns(dndOrderedColumns)
     }
+    setActiveDragItemId(null)
+    setActiveDragItemType(null)
+    setActiveDragItemData(null)
   }
-
+  const CustomeDropAnimation = {
+    sideEffects: defaultDropAnimationSideEffects({ styles: { active: { opacity: '0.5' } } })
+  }
   return (
-    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+    <DndContext 
+      sensors={sensors}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
       <Box
         sx={{
           //bgcolor: currentMode === 'dark' ? '#2b3a55' : '#75c3fe',
@@ -69,6 +98,15 @@ function BoardContent({ board }) {
         }}
       >
         <ListColumns columns={orderedColumns} />
+        <DragOverlay dropAnimation={CustomeDropAnimation}>
+          {activeDragItemType && null}
+          {(activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN) && (
+            <Column column={activeDragItemData} />
+          )}
+          {(activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD) && (
+            <Card card={activeDragItemData} />
+          )}
+        </DragOverlay>
       </Box>
     </DndContext>
   )
