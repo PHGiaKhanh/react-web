@@ -48,7 +48,7 @@ function Column({ column }) {
         sx={{
           minWidth: '300px',
           maxWidth: '300px',
-          bgcolor: (theme) => theme.vars.palette.background.paper,
+          bgcolor: (theme) => theme.palette.mode === 'light' ? '#ebecf0' : '#3c3c3c',
           ml: 2,
           borderRadius: '6px',
           height: 'fit-content',

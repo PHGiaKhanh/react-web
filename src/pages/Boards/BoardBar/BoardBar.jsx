@@ -118,37 +118,37 @@ function BoardBar({board }) {
               } }}
           >
             <Tooltip title="learn with camoi">
-              <Avatar alt="learn with camoi" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t39.30808-6/476116024_1339504910572530_7380376174144499750_n.jpg?stp=cp6_dst-jpg_p180x540_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=BOZ603hYPMEQ7kNvwF7lc_3&_nc_oc=AdqJ1tFJqucjBdv9H-KWDQseFm3e3jQrCkP4SlHorSQAxDW2Uywi63dS_T5a8Z7-MOE&_nc_zt=23&_nc_ht=scontent.fhan4-3.fna&_nc_gid=SKE0yBsKlUEP8m-Y2FTU3w&_nc_ss=7b2a8&oh=00_Af4iA7tfaxin9kSwIPbO1rSrWZ_bHdiT65GEkW_RJMruWw&oe=6A04678F" />
+              <Avatar alt="learn with camoi" src="" />
             </Tooltip>
             <Tooltip title="learn with camoi">
-              <Avatar alt="learn with camoi" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t39.30808-6/476116024_1339504910572530_7380376174144499750_n.jpg?stp=cp6_dst-jpg_p180x540_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=BOZ603hYPMEQ7kNvwF7lc_3&_nc_oc=AdqJ1tFJqucjBdv9H-KWDQseFm3e3jQrCkP4SlHorSQAxDW2Uywi63dS_T5a8Z7-MOE&_nc_zt=23&_nc_ht=scontent.fhan4-3.fna&_nc_gid=SKE0yBsKlUEP8m-Y2FTU3w&_nc_ss=7b2a8&oh=00_Af4iA7tfaxin9kSwIPbO1rSrWZ_bHdiT65GEkW_RJMruWw&oe=6A04678F" />
+              <Avatar alt="learn with camoi" src="" />
             </Tooltip>
             <Tooltip title="learn with camoi">
-              <Avatar alt="learn with camoi" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t39.30808-6/476116024_1339504910572530_7380376174144499750_n.jpg?stp=cp6_dst-jpg_p180x540_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=BOZ603hYPMEQ7kNvwF7lc_3&_nc_oc=AdqJ1tFJqucjBdv9H-KWDQseFm3e3jQrCkP4SlHorSQAxDW2Uywi63dS_T5a8Z7-MOE&_nc_zt=23&_nc_ht=scontent.fhan4-3.fna&_nc_gid=SKE0yBsKlUEP8m-Y2FTU3w&_nc_ss=7b2a8&oh=00_Af4iA7tfaxin9kSwIPbO1rSrWZ_bHdiT65GEkW_RJMruWw&oe=6A04678F" />
+              <Avatar alt="learn with camoi" src="" />
             </Tooltip>
             <Tooltip title="learn with camoi">
-              <Avatar alt="learn with camoi" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t39.30808-6/476116024_1339504910572530_7380376174144499750_n.jpg?stp=cp6_dst-jpg_p180x540_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=BOZ603hYPMEQ7kNvwF7lc_3&_nc_oc=AdqJ1tFJqucjBdv9H-KWDQseFm3e3jQrCkP4SlHorSQAxDW2Uywi63dS_T5a8Z7-MOE&_nc_zt=23&_nc_ht=scontent.fhan4-3.fna&_nc_gid=SKE0yBsKlUEP8m-Y2FTU3w&_nc_ss=7b2a8&oh=00_Af4iA7tfaxin9kSwIPbO1rSrWZ_bHdiT65GEkW_RJMruWw&oe=6A04678F" />
+              <Avatar alt="learn with camoi" src="" />
             </Tooltip>
             <Tooltip title="learn with camoi">
-              <Avatar alt="learn with camoi" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t39.30808-6/476116024_1339504910572530_7380376174144499750_n.jpg?stp=cp6_dst-jpg_p180x540_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=BOZ603hYPMEQ7kNvwF7lc_3&_nc_oc=AdqJ1tFJqucjBdv9H-KWDQseFm3e3jQrCkP4SlHorSQAxDW2Uywi63dS_T5a8Z7-MOE&_nc_zt=23&_nc_ht=scontent.fhan4-3.fna&_nc_gid=SKE0yBsKlUEP8m-Y2FTU3w&_nc_ss=7b2a8&oh=00_Af4iA7tfaxin9kSwIPbO1rSrWZ_bHdiT65GEkW_RJMruWw&oe=6A04678F" />
+              <Avatar alt="learn with camoi" src="" />
             </Tooltip>
             <Tooltip title="learn with camoi">
-              <Avatar alt="learn with camoi" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t39.30808-6/476116024_1339504910572530_7380376174144499750_n.jpg?stp=cp6_dst-jpg_p180x540_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=BOZ603hYPMEQ7kNvwF7lc_3&_nc_oc=AdqJ1tFJqucjBdv9H-KWDQseFm3e3jQrCkP4SlHorSQAxDW2Uywi63dS_T5a8Z7-MOE&_nc_zt=23&_nc_ht=scontent.fhan4-3.fna&_nc_gid=SKE0yBsKlUEP8m-Y2FTU3w&_nc_ss=7b2a8&oh=00_Af4iA7tfaxin9kSwIPbO1rSrWZ_bHdiT65GEkW_RJMruWw&oe=6A04678F" />
+              <Avatar alt="learn with camoi" src="" />
             </Tooltip>
             <Tooltip title="learn with camoi">
-              <Avatar alt="learn with camoi" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t39.30808-6/476116024_1339504910572530_7380376174144499750_n.jpg?stp=cp6_dst-jpg_p180x540_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=BOZ603hYPMEQ7kNvwF7lc_3&_nc_oc=AdqJ1tFJqucjBdv9H-KWDQseFm3e3jQrCkP4SlHorSQAxDW2Uywi63dS_T5a8Z7-MOE&_nc_zt=23&_nc_ht=scontent.fhan4-3.fna&_nc_gid=SKE0yBsKlUEP8m-Y2FTU3w&_nc_ss=7b2a8&oh=00_Af4iA7tfaxin9kSwIPbO1rSrWZ_bHdiT65GEkW_RJMruWw&oe=6A04678F" />
+              <Avatar alt="learn with camoi" src="" />
             </Tooltip>
             <Tooltip title="learn with camoi">
-              <Avatar alt="learn with camoi" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t39.30808-6/476116024_1339504910572530_7380376174144499750_n.jpg?stp=cp6_dst-jpg_p180x540_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=BOZ603hYPMEQ7kNvwF7lc_3&_nc_oc=AdqJ1tFJqucjBdv9H-KWDQseFm3e3jQrCkP4SlHorSQAxDW2Uywi63dS_T5a8Z7-MOE&_nc_zt=23&_nc_ht=scontent.fhan4-3.fna&_nc_gid=SKE0yBsKlUEP8m-Y2FTU3w&_nc_ss=7b2a8&oh=00_Af4iA7tfaxin9kSwIPbO1rSrWZ_bHdiT65GEkW_RJMruWw&oe=6A04678F" />
+              <Avatar alt="learn with camoi" src="" />
             </Tooltip>
             <Tooltip title="learn with camoi">
-              <Avatar alt="learn with camoi" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t39.30808-6/476116024_1339504910572530_7380376174144499750_n.jpg?stp=cp6_dst-jpg_p180x540_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=BOZ603hYPMEQ7kNvwF7lc_3&_nc_oc=AdqJ1tFJqucjBdv9H-KWDQseFm3e3jQrCkP4SlHorSQAxDW2Uywi63dS_T5a8Z7-MOE&_nc_zt=23&_nc_ht=scontent.fhan4-3.fna&_nc_gid=SKE0yBsKlUEP8m-Y2FTU3w&_nc_ss=7b2a8&oh=00_Af4iA7tfaxin9kSwIPbO1rSrWZ_bHdiT65GEkW_RJMruWw&oe=6A04678F" />
+              <Avatar alt="learn with camoi" src="" />
             </Tooltip>
             <Tooltip title="learn with camoi">
-              <Avatar alt="learn with camoi" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t39.30808-6/476116024_1339504910572530_7380376174144499750_n.jpg?stp=cp6_dst-jpg_p180x540_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=BOZ603hYPMEQ7kNvwF7lc_3&_nc_oc=AdqJ1tFJqucjBdv9H-KWDQseFm3e3jQrCkP4SlHorSQAxDW2Uywi63dS_T5a8Z7-MOE&_nc_zt=23&_nc_ht=scontent.fhan4-3.fna&_nc_gid=SKE0yBsKlUEP8m-Y2FTU3w&_nc_ss=7b2a8&oh=00_Af4iA7tfaxin9kSwIPbO1rSrWZ_bHdiT65GEkW_RJMruWw&oe=6A04678F" />
+              <Avatar alt="learn with camoi" src="" />
             </Tooltip>
             <Tooltip title="learn with camoi">
-              <Avatar alt="learn with camoi" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t39.30808-6/476116024_1339504910572530_7380376174144499750_n.jpg?stp=cp6_dst-jpg_p180x540_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=BOZ603hYPMEQ7kNvwF7lc_3&_nc_oc=AdqJ1tFJqucjBdv9H-KWDQseFm3e3jQrCkP4SlHorSQAxDW2Uywi63dS_T5a8Z7-MOE&_nc_zt=23&_nc_ht=scontent.fhan4-3.fna&_nc_gid=SKE0yBsKlUEP8m-Y2FTU3w&_nc_ss=7b2a8&oh=00_Af4iA7tfaxin9kSwIPbO1rSrWZ_bHdiT65GEkW_RJMruWw&oe=6A04678F" />
+              <Avatar alt="learn with camoi" src="" />
             </Tooltip>
           </AvatarGroup>
         </Box>
