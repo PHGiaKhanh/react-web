@@ -10,9 +10,11 @@ import {
   useSensors,
   DragOverlay,
   defaultDropAnimationSideEffects,
-  closestCorners
+  closestCorners,
+  pointerWithin,
+  rectIntersection
 } from '@dnd-kit/core'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { cloneDeep } from 'lodash'
 import { arrayMove } from '@dnd-kit/sortable'
 import Column from './ListColumns/Column/Column'
@@ -243,10 +245,20 @@ function BoardContent({ board }) {
     sideEffects: defaultDropAnimationSideEffects({ styles: { active: { opacity: '0.5' } } })
   }
 
+  //custome Thuật toán phát hiện va chạm
+  const collisionDetectionStrategy = useCallback((args) => {
+    if (activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN) {
+      return closestCorners({ ...args })
+    }
+    const pointerIntersections = pointerWithin(args)
+    // check có [] có null không !!pointerIntersections?.length
+    const intersections = !!pointerIntersections?.length > 0 ? pointerIntersections : rectIntersection(args)
+  }, [activeDragItemType])
   return (
     <DndContext
       sensors={sensors}
-      collisionDetection={closestCorners}
+      //Tự custome Thuật toán phát hiện va chạm để fix bug flickering + nhảy thêm dữ liệu
+      collisionDetection={collisionDetectionStrategy}
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
