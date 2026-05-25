@@ -11,10 +11,12 @@ import {
   DragOverlay,
   defaultDropAnimationSideEffects,
   closestCorners,
+  closestCenter,
   pointerWithin,
-  rectIntersection
+  rectIntersection,
+  getFirstCollision
 } from '@dnd-kit/core'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useRef } from 'react'
 import { cloneDeep } from 'lodash'
 import { arrayMove } from '@dnd-kit/sortable'
 import Column from './ListColumns/Column/Column'
@@ -52,6 +54,9 @@ function BoardContent({ board }) {
   const [activeDragItemType, setActiveDragItemType] = useState(null)
   const [activeDragItemData, setActiveDragItemData] = useState(null)
   const [oldColumnWhenDraggingCard, setOldColumnWhenDraggingCard] = useState(null)
+
+  //điểm va chjm cuối cùng trước đó ( để xử lý thuật toán phát hiện va chạm )
+  const lastOverId= useRef(null)
 
   //tim column theo cardid
   const findColumnByCardId = (cardId) => {
@@ -252,8 +257,32 @@ function BoardContent({ board }) {
     }
     const pointerIntersections = pointerWithin(args)
     // check có [] có null không !!pointerIntersections?.length
-    const intersections = !!pointerIntersections?.length > 0 ? pointerIntersections : rectIntersection(args)
-  }, [activeDragItemType])
+    //Thuật toán phát hiện va chạm sẽ trả về 1 mảng các va chạm ở đây
+    const intersections = !!pointerIntersections?.length ? pointerIntersections : rectIntersection(args)
+
+    //Tìm overId đầu tiên trong đám intersections ở trên
+    let overId = getFirstCollision(intersections, 'id')
+    console.log('overId:', overId)
+    if (overId) {
+      //xử lý flickering over là column thì tìm cardId gần nhất trong khu vực va chạm đó. Ở đây closestCenter mượt hơn
+      const checkColumn = orderedColumns.find(c => c._id === overId)
+      if (checkColumn) {
+        //console.log('OverId before:', overId)
+        overId = closestCenter({
+          ...args,
+          droppableContainers: args.droppableContainers.filter(container => {
+            return (container.id !==overId) && (checkColumn?.cardOderIds?.includes(container.id))
+          })
+        })[0]?.id
+        //console.log('OverId after:', overId)
+      }
+
+      lastOverId.current = overId
+      return [{ id: overId }]
+    }
+    //nếu overId là null sẽ trả về mảng rỗng
+    return lastOverId.current ? [{ id: lastOverId.current }] : []
+  }, [activeDragItemType, orderedColumns])
   return (
     <DndContext
       sensors={sensors}
