@@ -11,13 +11,12 @@ import {
   DragOverlay,
   defaultDropAnimationSideEffects,
   closestCorners,
-  closestCenter,
   pointerWithin,
-  rectIntersection,
   getFirstCollision
 } from '@dnd-kit/core'
 import { useCallback, useEffect, useState, useRef } from 'react'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, isEmpty } from 'lodash'
+import { generatePlaceholderCard } from '~/utils/formatters'
 import { arrayMove } from '@dnd-kit/sortable'
 import Column from './ListColumns/Column/Column'
 import Card from './ListColumns/Column/ListCards/Card/Card'
@@ -96,13 +95,19 @@ function BoardContent({ board }) {
       if (nextActiveColumn) {
         //xoa card o column active o vi tri cu
         nextActiveColumn.cards = nextActiveColumn.cards.filter(c => c._id !== activeDraggingCardId)
+
+        //thêm placeHolderCard nếu column rỗng (bị kéo hết card)
+        if (isEmpty(nextActiveColumn.cards)) {
+          nextActiveColumn.cards = [generatePlaceholderCard(nextActiveColumn)]
+        }
+
         //cap nhat lai cardOrderIds sau khi da xoa card khoi column active
         nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map(c => c._id)
       }
 
       //new column
       if (nextOverColumn) {
-        //kiem tra card dang keo co dang o overColumn chua, co thi can xoa no truoc 
+        //kiem tra card dang keo co dang o overColumn chua, co thi can xoa no truoc
         nextOverColumn.cards = nextOverColumn.cards.filter(c => c._id !== activeDraggingCardId)
 
         // cập nhật lại chuẩn dữ liệu columnID trong card sau khi kéo card giữa 2 column khác nhau
@@ -113,6 +118,11 @@ function BoardContent({ board }) {
 
         // them card dang keo vao overColumn o vi tri moi
         nextOverColumn.cards = nextOverColumn.cards.toSpliced(newCardIndex, 0, rebuild_activeDraggingCardData)
+
+        // xóa placeholderCard nếu có trong column mới khi kéo card vào
+        nextOverColumn.cards = nextOverColumn.cards.filter(c => !c.FE_PlaceholderCard)
+
+        //cập nhật lại cardOrderIds sau khi đã thêm card vào column mới
         nextOverColumn.cardOrderIds = nextOverColumn.cards.map(c => c._id)
       }
       //console.log('NextColumns:', nextColumns)
@@ -178,6 +188,7 @@ function BoardContent({ board }) {
 
     //XỬ LÝ KÉO THẢ CARD
     if (activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD) {
+      // eslint-disable-next-line no-console
       console.log('keo tha card tam thoi')
 
       //activeDraggingCardId là card đang được kéo (đang active)
@@ -193,7 +204,6 @@ function BoardContent({ board }) {
 
       //Xử lý logic khi thả card vào 2 column khác nhau.
       //Phải dùng tới activeDragItemData.columnId hoặc oldColumnWhenDraggingCard._id (set và state từ bước handleDragStart)
-      //
       if (oldColumnWhenDraggingCard._id !== overColumn._id) {
         moveCardBetweenDifferentColumns (
           overColumn,
@@ -219,7 +229,6 @@ function BoardContent({ board }) {
           return nextColumns
 
         })
-
 
       }
     }
@@ -255,23 +264,29 @@ function BoardContent({ board }) {
     if (activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN) {
       return closestCorners({ ...args })
     }
+
     const pointerIntersections = pointerWithin(args)
+
+    // Nếu không có va chạm nào, trả về va chạm gần nhất trước đó để tránh flickering
+    if (!pointerIntersections?.length) return
+
     // check có [] có null không !!pointerIntersections?.length
     //Thuật toán phát hiện va chạm sẽ trả về 1 mảng các va chạm ở đây
-    const intersections = !!pointerIntersections?.length ? pointerIntersections : rectIntersection(args)
+    // const intersections = !!pointerIntersections?.length ? pointerIntersections : rectIntersection(args)
 
-    //Tìm overId đầu tiên trong đám intersections ở trên
-    let overId = getFirstCollision(intersections, 'id')
+    //Tìm overId đầu tiên trong đám pointerIntersections ở trên
+    let overId = getFirstCollision(pointerIntersections, 'id')
+    // eslint-disable-next-line no-console
     console.log('overId:', overId)
     if (overId) {
-      //xử lý flickering over là column thì tìm cardId gần nhất trong khu vực va chạm đó. Ở đây closestCenter mượt hơn
+      //xử lý flickering over là column thì tìm cardId gần nhất trong khu vực va chạm đó.
       const checkColumn = orderedColumns.find(c => c._id === overId)
       if (checkColumn) {
         //console.log('OverId before:', overId)
-        overId = closestCenter({
+        overId = closestCorners({
           ...args,
           droppableContainers: args.droppableContainers.filter(container => {
-            return (container.id !==overId) && (checkColumn?.cardOderIds?.includes(container.id))
+            return (container.id !== overId) && (checkColumn?.cardOrderIds?.includes(container.id))
           })
         })[0]?.id
         //console.log('OverId after:', overId)
