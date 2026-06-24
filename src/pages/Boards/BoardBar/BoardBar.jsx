@@ -46,13 +46,15 @@ function BoardBar({board }) {
         bgcolor: currentMode === 'dark' ? '#27354f' : '#0d4c98'
       }}>
         <Box sx={{ display:'flex', alignItems:'center', gap: 2 }}>
-          <Chip
-            sx={MENU_STYLE}
-            icon={<DashboardIcon />}
-            label={board?.title}
-            clickable
+          <Tooltip title={board?.description}>
+            <Chip
+              sx={MENU_STYLE}
+              icon={<DashboardIcon />}
+              label={board?.title}
+              clickable
             // onClick={() => alert('Clicked!')}
-          />
+            />
+          </Tooltip>
 
           <Chip
             sx={MENU_STYLE}
