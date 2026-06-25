@@ -3,7 +3,7 @@ import Container from '@mui/material/Container'
 import AppBar from '~/components/AppBar/AppBar'
 import BoardBar from '~/pages/Boards/BoardBar/BoardBar'
 import BoardContent from './BoardContent/BoardContent'
-import { mockData } from '~/apis/mock-data'
+//import { mockData } from '~/apis/mock-data'
 import { fetchBoardDetailsAPI } from '~/apis'
 
 function App() {
@@ -23,8 +23,8 @@ function App() {
       {/* board={mockData?.board} lỡ kh có data kh bị lỗi như 1 if else  */}
       {/* <BoardBar board={board} />
       <BoardContent board={board} /> */}
-      <BoardBar board={mockData?.board} />
-      <BoardContent board={mockData?.board} />
+      <BoardBar board={board} />
+      <BoardContent board={board} />
     </Container>
   )
 }
