@@ -84,28 +84,30 @@ function AppBar() {
                   </InputAdornment>
                 ),
                 endAdornment: (
-                  <CloseIcon
-                    fontSize="small"
-                    sx={{ color: searchValue ? 'white' : 'transparent', cursor: 'pointer' }}
-                    onClick={() => setSearchValue('')}
-                  />
+                  <InputAdornment position="end">
+                    <CloseIcon
+                      fontSize="small"
+                      sx={{ color: searchValue ? 'white' : 'transparent', cursor: 'pointer' }}
+                      onClick={() => setSearchValue('')}
+                    />
+                  </InputAdornment>
                 )
               }
             }}
             sx={{
               ' & label': { color: 'white' },
               ' & input': { color: 'white' },
-              ' & label.Mui-focused': {
-                color: 'white'
-              },
+              ' & label.Mui-focused': { color: 'white' },
               ' & .MuiOutlinedInput-root': {
                 '& fieldset': { borderColor: 'white' },
                 '&:hover fieldset': { borderColor: 'white' },
                 '&.Mui-focused fieldset': { borderColor: 'white' }
               },
-              minWidth: '180px'
+              minWidth: '120px',
+              maxWidth: '180px'
             }}
-            fullWidth />
+          />
+
           <ModeSelect />
           <Tooltip title="Notifications">
             <Badge color="warning" variant="dot" sx={{ cursor: 'pointer' }}>
