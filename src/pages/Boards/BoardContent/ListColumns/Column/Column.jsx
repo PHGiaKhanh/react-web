@@ -24,7 +24,7 @@ import { useSortable } from '@dnd-kit/sortable'
 import TextField from '@mui/material/TextField'
 import CloseIcon from '@mui/icons-material/Close'
 
-function Column({ column }) {
+function Column({ column, createNewCard }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
     data: { ...column }
@@ -49,18 +49,26 @@ function Column({ column }) {
 
   const [newCardTitle, setNewCardTitle] = useState('')
 
-  const addNewCard = () => {
+  const addNewCard = async () => {
     if (!newCardTitle) {
       toast.error('Please enter card title', { position: 'bottom-right' })
       return
     }
-    //console.log('addNewCard', newCardTitle)
-    // Gọi API để tạo card mới
+
+    //tao du lieu de goi API
+    const newCardData = {
+      title: newCardTitle,
+      columnId: column._id
+    }
+
+    await createNewCard(newCardData)
 
     // Đóng trạng thái thêm card mới và clear input
     toggleOpenNewCardForm()
     setNewCardTitle('')
   }
+
+
 
   return (
     <div ref={setNodeRef} style={dndKitColumnStyles} {...attributes}>

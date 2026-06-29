@@ -27,7 +27,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
 }
 
-function BoardContent({ board }) {
+function BoardContent({ board, createNewColumn, createNewCard }) {
   const { mode, systemMode } = useColorScheme()
   const currentMode = (mode === 'system' ? systemMode : mode) || 'light'
 
@@ -317,7 +317,11 @@ function BoardContent({ board }) {
           p: '10px 0'
         }}
       >
-        <ListColumns columns={orderedColumns} />
+        <ListColumns
+          columns={orderedColumns}
+          createNewColumn={createNewColumn}
+          createNewCard={createNewCard}
+        />
         <DragOverlay dropAnimation={CustomeDropAnimation}>
           {activeDragItemType && null}
           {(activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN) && (
