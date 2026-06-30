@@ -5,6 +5,8 @@ import BoardBar from '~/pages/Boards/BoardBar/BoardBar'
 import BoardContent from './BoardContent/BoardContent'
 //import { mockData } from '~/apis/mock-data'
 import { fetchBoardDetailsAPI, createNewColumnAPI, createNewCardAPI } from '~/apis'
+import { generatePlaceholderCard } from '~/utils/formatters'
+import { isEmpty } from 'lodash'
 
 function App() {
 
@@ -13,6 +15,13 @@ function App() {
     //Tạm thời set cứng bpardId, flow chuẩn chỉnh là sẽ dùng react-router-dom để lấy boardId từ url
     const boardId = '6a39f63bd485524f5cef9a8d'
     fetchBoardDetailsAPI(boardId).then(board => {
+      //Xử lý kéo thả vào col rỗng khi f5 trang web
+      board.columns.forEach(column => {
+        if (isEmpty(column.cards)) {
+          column.cards = [generatePlaceholderCard(column)]
+          column.cardOrderIds = [generatePlaceholderCard(column)._id]
+        }
+      })
       setBoard(board)
     })
   }, [])
@@ -23,6 +32,11 @@ function App() {
       ...newColumnData,
       boardId: board._id
     })
+
+
+    // Xử lý khi kéo card vào một col mới tạo chưa có card
+    createdColumn.cards = [generatePlaceholderCard(createdColumn)]
+    createdColumn.cardOrderIds = [generatePlaceholderCard(createdColumn)._id]
 
     //Cập nhật lại state board
     const newBoard = { ...board }
