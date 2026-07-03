@@ -13,6 +13,12 @@ export const fetchBoardDetailsAPI = async (boardId) => {
   return response.data
 }
 
+export const updateBoardDetailsAPI = async (boardId, updateData) => {
+  const response = await axios.put(`${API_ROOT}/v1/boards/${boardId}`, updateData)
+  //luu ý: axios tra kq ve qua property cuar nos laf data
+  return response.data
+}
+
 /**columns**/
 export const createNewColumnAPI = async (newColumnData) => {
   const response = await axios.post(`${API_ROOT}/v1/columns`, newColumnData)

@@ -27,7 +27,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
 }
 
-function BoardContent({ board, createNewColumn, createNewCard }) {
+function BoardContent({ board, createNewColumn, createNewCard, moveColumns }) {
   const { mode, systemMode } = useColorScheme()
   const currentMode = (mode === 'system' ? systemMode : mode) || 'light'
 
@@ -242,10 +242,10 @@ function BoardContent({ board, createNewColumn, createNewCard }) {
 
         // arrayMove se tra ve mang column moi sau khi da duoc sap xep lai
         const dndOrderedColumns = arrayMove(orderedColumns, oldColumnIndex, newColumnIndex)
-        //dung sau nay khi da co API update column order tren server
-        // const dndOrderedColumnIds = dndOrderedColumns.map(c => c._id)
-        // console.log('DndOrderedColumns:', dndOrderedColumns)
-        // console.log('DndOrderedColumnIds:', dndOrderedColumnIds)
+
+        moveColumns(dndOrderedColumns) //goi API update column order tren server
+
+        //Cập nhật lại state orderedColumns sau khi kéo thả column
         setOrderedColumns(dndOrderedColumns)
       }
     }

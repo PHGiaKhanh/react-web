@@ -4,7 +4,7 @@ import AppBar from '~/components/AppBar/AppBar'
 import BoardBar from '~/pages/Boards/BoardBar/BoardBar'
 import BoardContent from './BoardContent/BoardContent'
 //import { mockData } from '~/apis/mock-data'
-import { fetchBoardDetailsAPI, createNewColumnAPI, createNewCardAPI } from '~/apis'
+import { fetchBoardDetailsAPI, createNewColumnAPI, createNewCardAPI, updateBoardDetailsAPI } from '~/apis'
 import { generatePlaceholderCard } from '~/utils/formatters'
 import { isEmpty } from 'lodash'
 
@@ -61,6 +61,17 @@ function App() {
     setBoard(newBoard)
   }
 
+  const moveColumns = async (dndOrderedColumns) => {
+    const dndOrderedColumnIds = dndOrderedColumns.map(c => c._id)
+
+    const newBoard = { ...board }
+    newBoard.columns = dndOrderedColumns
+    newBoard.columnOrderIds = dndOrderedColumnIds
+    setBoard(newBoard)
+
+    //gọi API update column order
+    await updateBoardDetailsAPI(board._id, { columnOrderIds: dndOrderedColumnIds })
+  }
 
   return (
     <Container disableGutters maxWidth={false} sx={{ height:'100vh' }}>
@@ -70,6 +81,7 @@ function App() {
         board={board}
         createNewColumn={createNewColumn}
         createNewCard={createNewCard}
+        moveColumns={moveColumns}
       />
     </Container>
   )
