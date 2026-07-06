@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box'
 import { useColorScheme } from '@mui/material/styles'
 import ListColumns from './ListColumns/ListColumns'
-import { mapOrder } from '~/utils/sorts'
 import {
   DndContext,
   // MouseSensor,
@@ -64,7 +63,8 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns, move
   }
 
   useEffect(() => {
-    setOrderedColumns(mapOrder(board?.columns, board?.columnOrderIds, '_id'))
+    //column đã được sắp xếp ở trên
+    setOrderedColumns(board.columns)
   }, [board])
 
 
@@ -219,7 +219,10 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns, move
       } else {
         //kéo thả card trong cùng column( giống kéo thả column)
         const oldCardIndex = oldColumnWhenDraggingCard?.cards?.findIndex(c => c._id === activeDragItemId)// lay vij tri oldColumnWhenDraggingCard
+        console.log('oldCardIndex:', oldCardIndex)
         const newCardIndex = overColumn?.cards?.findIndex(c => c._id === overCardId) // lay vi tri moi sau khi drag
+        console.log('newCardIndex:', newCardIndex)
+
         const dndOrderedCards = arrayMove(oldColumnWhenDraggingCard?.cards, oldCardIndex, newCardIndex)
         const dndOrderedCardIds = dndOrderedCards.map(c => c._id)
 

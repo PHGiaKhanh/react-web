@@ -3,8 +3,10 @@ import Container from '@mui/material/Container'
 import AppBar from '~/components/AppBar/AppBar'
 import BoardBar from '~/pages/Boards/BoardBar/BoardBar'
 import BoardContent from './BoardContent/BoardContent'
-//import { mockData } from '~/apis/mock-data'
-import { 
+import { mapOrder } from '~/utils/sorts'
+import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
+import {
   fetchBoardDetailsAPI,
   createNewColumnAPI,
   createNewCardAPI,
@@ -13,6 +15,7 @@ import {
 } from '~/apis'
 import { generatePlaceholderCard } from '~/utils/formatters'
 import { isEmpty } from 'lodash'
+import { Typography } from '@mui/material'
 
 function App() {
 
@@ -21,11 +24,18 @@ function App() {
     //Tạm thời set cứng bpardId, flow chuẩn chỉnh là sẽ dùng react-router-dom để lấy boardId từ url
     const boardId = '6a39f63bd485524f5cef9a8d'
     fetchBoardDetailsAPI(boardId).then(board => {
-      //Xử lý kéo thả vào col rỗng khi f5 trang web
+
+      //Sắp xếp lại thứ tự các column ở đây trước khi đưa dữ liệu xuống các component con
+      board.columns = mapOrder(board?.columns, board.columnOrderIds, '_id')
+
       board.columns.forEach(column => {
+        //Xử lý kéo thả vào col rỗng khi f5 trang web
         if (isEmpty(column.cards)) {
           column.cards = [generatePlaceholderCard(column)]
           column.cardOrderIds = [generatePlaceholderCard(column)._id]
+        } else {
+          //Sắp xếp thứ tự card ở đây trước khi đưa dữ liệu xuống bên dưới các component
+          column.cards = mapOrder(column.cards, column.cardOrderIds, '_id')
         }
       })
       setBoard(board)
@@ -94,8 +104,20 @@ function App() {
     }
     setBoard(newBoard)
 
+    console.log('full board:', board)
     //gọi api update column
-    updateColumnDetailsAPI(columnId, { cardOrderIds: dndOrderedCardIds })
+    //updateColumnDetailsAPI(columnId, { cardOrderIds: dndOrderedCardIds })
+  }
+
+  if (!board) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2, height: '100vh', width: '100vh' }}>
+        <CircularProgress />
+        <Typography variant="h6" component="div">
+          Loading board...
+        </Typography>
+      </Box>
+    )
   }
 
   return (
