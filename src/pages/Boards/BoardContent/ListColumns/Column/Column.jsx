@@ -18,7 +18,6 @@ import DragHandleIcon from '@mui/icons-material/DragHandle'
 import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import ListCards from './ListCards/ListCards'
-import { mapOrder } from '~/utils/sorts'
 import { CSS } from '@dnd-kit/utilities'
 import { useSortable } from '@dnd-kit/sortable'
 import TextField from '@mui/material/TextField'
@@ -41,8 +40,8 @@ function Column({ column, createNewCard }) {
   const open = Boolean(anchorEl)
   const handleClick = (event) => {setAnchorEl(event.currentTarget)}
   const handleClose = () => {setAnchorEl(null)}
-
-  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+  //card đã được sắp xếp ở trên
+  const orderedCards = column.cards
 
   const [openNewCardForm, setOpenNewCardForm] = useState(false)
   const toggleOpenNewCardForm = () => setOpenNewCardForm(!openNewCardForm)
