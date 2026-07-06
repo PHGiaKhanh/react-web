@@ -27,7 +27,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
 }
 
-function BoardContent({ board, createNewColumn, createNewCard, moveColumns }) {
+function BoardContent({ board, createNewColumn, createNewCard, moveColumns, moveCardInTheSameColumn }) {
   const { mode, systemMode } = useColorScheme()
   const currentMode = (mode === 'system' ? systemMode : mode) || 'light'
 
@@ -215,21 +215,26 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns }) {
           activeDraggingCardId,
           activeDraggingCardData
         )
+
       } else {
         //kéo thả card trong cùng column( giống kéo thả column)
         const oldCardIndex = oldColumnWhenDraggingCard?.cards?.findIndex(c => c._id === activeDragItemId)// lay vij tri oldColumnWhenDraggingCard
         const newCardIndex = overColumn?.cards?.findIndex(c => c._id === overCardId) // lay vi tri moi sau khi drag
         const dndOrderedCards = arrayMove(oldColumnWhenDraggingCard?.cards, oldCardIndex, newCardIndex)
+        const dndOrderedCardIds = dndOrderedCards.map(c => c._id)
+
         setOrderedColumns(prevColumns => {
           const nextColumns = cloneDeep(prevColumns)
           const targetColumn = nextColumns.find(c => c._id === overColumn._id)
           //cập nhật lại 2 giá trị mới là cards và cardOrderIds trong targetColumn
           targetColumn.cards = dndOrderedCards
-          targetColumn.cardOrderIds = dndOrderedCards.map(c => c._id)
+          targetColumn.cardOrderIds = dndOrderedCardIds
           //trả về state mới sau khi đã được cập nhật
           return nextColumns
-
         })
+
+        //Gọi lên props functonmoveCardInTheSameColumn
+        moveCardInTheSameColumn(dndOrderedCards, dndOrderedCardIds, oldColumnWhenDraggingCard._id)
 
       }
     }
@@ -243,10 +248,11 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns }) {
         // arrayMove se tra ve mang column moi sau khi da duoc sap xep lai
         const dndOrderedColumns = arrayMove(orderedColumns, oldColumnIndex, newColumnIndex)
 
-        moveColumns(dndOrderedColumns) //goi API update column order tren server
-
         //Cập nhật lại state orderedColumns sau khi kéo thả column
         setOrderedColumns(dndOrderedColumns)
+
+        moveColumns(dndOrderedColumns) //goi API update column order tren server
+
       }
     }
 

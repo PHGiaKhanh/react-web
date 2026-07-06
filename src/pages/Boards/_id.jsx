@@ -4,7 +4,13 @@ import AppBar from '~/components/AppBar/AppBar'
 import BoardBar from '~/pages/Boards/BoardBar/BoardBar'
 import BoardContent from './BoardContent/BoardContent'
 //import { mockData } from '~/apis/mock-data'
-import { fetchBoardDetailsAPI, createNewColumnAPI, createNewCardAPI, updateBoardDetailsAPI } from '~/apis'
+import { 
+  fetchBoardDetailsAPI,
+  createNewColumnAPI,
+  createNewCardAPI,
+  updateBoardDetailsAPI,
+  updateColumnDetailsAPI
+} from '~/apis'
 import { generatePlaceholderCard } from '~/utils/formatters'
 import { isEmpty } from 'lodash'
 
@@ -61,7 +67,9 @@ function App() {
     setBoard(newBoard)
   }
 
-  const moveColumns = async (dndOrderedColumns) => {
+  //function goi API khi kéo thả xong col
+  //Gọi api để cập nhật mảng columnOrderIds của Board chứa nó
+  const moveColumns = (dndOrderedColumns) => {
     const dndOrderedColumnIds = dndOrderedColumns.map(c => c._id)
 
     const newBoard = { ...board }
@@ -70,7 +78,24 @@ function App() {
     setBoard(newBoard)
 
     //gọi API update column order
-    await updateBoardDetailsAPI(board._id, { columnOrderIds: dndOrderedColumnIds })
+    updateBoardDetailsAPI(board._id, { columnOrderIds: dndOrderedColumnIds })
+  }
+
+
+  //Khi di chuyển card trong cùng 1 col
+  //Chỉ cần gọi API để cập nhậtt cardOrderIds của column chứa nó(thay đổi vị trí trog mảng)
+  const moveCardInTheSameColumn = (dndOrderedCards, dndOrderedCardIds, columnId) => {
+    //update chuẩn dữ liệu state board
+    const newBoard = { ...board }
+    const columnToUpdate = newBoard.columns.find(column => column._id === columnId)
+    if (columnToUpdate) {
+      columnToUpdate.cards = dndOrderedCards
+      columnToUpdate.cardOrderIds = dndOrderedCardIds
+    }
+    setBoard(newBoard)
+
+    //gọi api update column
+    updateColumnDetailsAPI(columnId, { cardOrderIds: dndOrderedCardIds })
   }
 
   return (
@@ -82,6 +107,7 @@ function App() {
         createNewColumn={createNewColumn}
         createNewCard={createNewCard}
         moveColumns={moveColumns}
+        moveCardInTheSameColumn={moveCardInTheSameColumn}
       />
     </Container>
   )
