@@ -104,9 +104,8 @@ function App() {
     }
     setBoard(newBoard)
 
-    console.log('full board:', board)
     //gọi api update column
-    //updateColumnDetailsAPI(columnId, { cardOrderIds: dndOrderedCardIds })
+    updateColumnDetailsAPI(columnId, { cardOrderIds: dndOrderedCardIds })
   }
 
   if (!board) {
