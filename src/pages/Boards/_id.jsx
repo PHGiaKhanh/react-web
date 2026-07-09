@@ -11,7 +11,8 @@ import {
   createNewColumnAPI,
   createNewCardAPI,
   updateBoardDetailsAPI,
-  updateColumnDetailsAPI
+  updateColumnDetailsAPI,
+  moveCardToAnotherColumnAPI
 } from '~/apis'
 import { generatePlaceholderCard } from '~/utils/formatters'
 import { isEmpty } from 'lodash'
@@ -108,6 +109,33 @@ function App() {
     updateColumnDetailsAPI(columnId, { cardOrderIds: dndOrderedCardIds })
   }
 
+
+  //Khi di chuyển card sang col khác
+  //B1: Cập nhật mảng cardOrderIds của col chứa card cũ (sourceColumnId)
+  //B2: Cập nhật mảng cardOrderIds của col chứa card mới (destinationColumnId)
+  //B3: Cập nhật columnId mới của Card đã kéo-> vieets API riêng
+  const moveCardToAnotherColumn = (currentCardId, prevColumnId, nextColumnId, dndOrderedColumns) => {
+    console.log('currentCardId:', currentCardId)
+    console.log('prevColumnId:', prevColumnId)
+    console.log('nextColumnId:', nextColumnId)
+    console.log('dndOrderedColumns:', dndOrderedColumns)
+
+    const dndOrderedColumnIds = dndOrderedColumns.map(c => c._id)
+    const newBoard = { ...board }
+    newBoard.columns = dndOrderedColumns
+    newBoard.columnOrderIds = dndOrderedColumnIds
+    setBoard(newBoard)
+
+    //Gọi API xxử lý BE
+    moveCardToAnotherColumnAPI({
+      currentCardId,
+      prevColumnId,
+      prevCardOrderIds: dndOrderedColumns.find(c => c._id === prevColumnId)?.cardOrderIds,
+      nextColumnId,
+      nextCardOrderIds: dndOrderedColumns.find(c => c._id === nextColumnId)?.cardOrderIds
+    })
+  }
+
   if (!board) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2, height: '100vh', width: '100vh' }}>
@@ -129,6 +157,7 @@ function App() {
         createNewCard={createNewCard}
         moveColumns={moveColumns}
         moveCardInTheSameColumn={moveCardInTheSameColumn}
+        moveCardToAnotherColumn={moveCardToAnotherColumn}
       />
     </Container>
   )
