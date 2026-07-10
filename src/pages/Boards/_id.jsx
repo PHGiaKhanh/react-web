@@ -18,6 +18,7 @@ import {
 import { generatePlaceholderCard } from '~/utils/formatters'
 import { isEmpty } from 'lodash'
 import { Typography } from '@mui/material'
+import { toast } from 'react-toastify'
 
 function App() {
 
@@ -151,10 +152,14 @@ function App() {
   //Xử lý xóa 1 col và card bên trong col đó
   const deleteColumnDetails = (columnId) => {
     //update state board
+    const newBoard = { ...board }
+    newBoard.columns = newBoard.columns.filter(column => column._id !== columnId)
+    newBoard.columnOrderIds = newBoard.columnOrderIds.filter(_id => _id !== columnId)
+    setBoard(newBoard)
 
     //Gọi API xử lý phía
     deleteColumnDetailsAPI(columnId).then( res => {
-      console.log('deleteColumnDetailsAPI res:', res)
+      toast.success(res?.deleteResult)
     })
   }
 
