@@ -22,8 +22,9 @@ import { CSS } from '@dnd-kit/utilities'
 import { useSortable } from '@dnd-kit/sortable'
 import TextField from '@mui/material/TextField'
 import CloseIcon from '@mui/icons-material/Close'
+import { useConfirm } from 'material-ui-confirm'
 
-function Column({ column, createNewCard }) {
+function Column({ column, createNewCard, deleteColumnDetails }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
     data: { ...column }
@@ -67,7 +68,22 @@ function Column({ column, createNewCard }) {
     setNewCardTitle('')
   }
 
+  const confirmDeleteColumn = useConfirm()
+  //Handle delete column and card in this column
+  const handleDeleteColumn = async () => {
+    confirmDeleteColumn({
+      title: 'Are you sure you want to delete this column?',
+      confirmationText: 'Confirm',
+      cancellationText: 'Cancel',
 
+      description: 'accept delete by typing this keyword "deleteeee!!"',
+      confirmationKeyword: 'deleteeee!!'
+    }).then(( ) => {
+      deleteColumnDetails(column._id)
+    }).catch(( ) => {
+
+    })
+  }
 
   return (
     <div ref={setNodeRef} style={dndKitColumnStyles} {...attributes}>
@@ -117,6 +133,7 @@ function Column({ column, createNewCard }) {
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
+              onClick={handleClose}
               anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'left'
@@ -126,9 +143,19 @@ function Column({ column, createNewCard }) {
                 horizontal: 'left'
               }}
             >
-              <MenuItem>
+              <MenuItem
+                onClick={toggleOpenNewCardForm}
+                sx={{
+                  '&:hover': {
+                    color:'info.light',
+                    // '& .delete-forever-icon' classname của con
+                    // '&.delete-forever-icon' hiểu thành là className của chính nó
+                    '& .add-card-icon': { color: 'info.light' }
+                  }
+                }}
+              >
                 <ListItemIcon>
-                  <AddCardIcon fontSize="small" />
+                  <AddCardIcon className="add-card-icon" fontSize="small" />
                 </ListItemIcon>
                 <ListItemText>Add new card</ListItemText>
               </MenuItem>
@@ -151,9 +178,19 @@ function Column({ column, createNewCard }) {
                 <ListItemText>Paste</ListItemText>
               </MenuItem>
               <Divider />
-              <MenuItem>
-                <ListItemIcon><DeleteForeverIcon fontSize="small" /></ListItemIcon>
-                <ListItemText>Remove this column</ListItemText>
+              <MenuItem
+                onClick={handleDeleteColumn}
+                sx={{
+                  '&:hover': {
+                    color:'warning.dark',
+                    // '& .delete-forever-icon' classname của con
+                    // '&.delete-forever-icon' hiểu thành là className của chính nó
+                    '& .delete-forever-icon': { color: 'warning.dark' }
+                  }
+                }}
+              >
+                <ListItemIcon><DeleteForeverIcon className="delete-forever-icon" fontSize="small" /></ListItemIcon>
+                <ListItemText>Delete this column</ListItemText>
               </MenuItem>
               <MenuItem>
                 <ListItemIcon><Cloud fontSize="small" /></ListItemIcon>

@@ -32,7 +32,8 @@ function BoardContent({
   createNewCard,
   moveColumns,
   moveCardInTheSameColumn,
-  moveCardToAnotherColumn
+  moveCardToAnotherColumn,
+  deleteColumnDetails
 }) {
   const { mode, systemMode } = useColorScheme()
   const currentMode = (mode === 'system' ? systemMode : mode) || 'light'
@@ -347,6 +348,7 @@ function BoardContent({
           columns={orderedColumns}
           createNewColumn={createNewColumn}
           createNewCard={createNewCard}
+          deleteColumnDetails={deleteColumnDetails}
         />
         <DragOverlay dropAnimation={CustomeDropAnimation}>
           {activeDragItemType && null}
