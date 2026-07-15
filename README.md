@@ -1,8 +1,7 @@
 
 ---
 
-### Requirements - Thông tin của bộ Code Base này - Chuẩn các phiên bản dưới đây để bắt đầu học: (Semantic Versioning)
-
+### Requirements - Thông tin của Code Base 
 ```
 * nodejs >= 18.16.0
 * npm = v9.5.1
